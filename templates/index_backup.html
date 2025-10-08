@@ -1,0 +1,158 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yalla Planner | Explore UAE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <h1>🌴 Yalla Planner</h1>
+        <div class="tabs">
+            <button class="tab active" data-page="explore">Explore</button>
+            <button class="tab" data-page="planner">Planner</button>
+            <button class="tab" data-page="ai">AI Chat</button>
+            <button class="tab" data-page="profile">Profile</button>
+        </div>
+    </nav>
+
+    <main id="explore" class="page active">
+        <section class="welcome">
+            <h2 id="welcome-text">Welcome, Maitha 👋</h2>
+            <p>Discover places and plan your adventures around the UAE 🇦🇪</p>
+        </section>
+
+        <section class="weather">
+            <h3>Today's Weather</h3>
+            <div id="weather-info">Loading weather...</div>
+        </section>
+
+        <section class="destinations">
+            <h3>Popular Destinations</h3>
+            <div class="destination-grid" id="dest-grid">
+                <!-- Destination cards inserted by JS -->
+            </div>
+        </section>
+
+        <section class="map-section">
+            <h3>Map Preview</h3>
+            <div id="map" class="map-box"></div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f5f6f8;
+  color: #222;
+}
+
+.navbar {
+  background: #005151;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.tabs button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.tabs .active {
+  background: #008080;
+}
+
+.page {
+  display: none;
+  padding: 20px;
+}
+
+.page.active {
+  display: block;
+}
+
+.welcome h2 {
+  margin-top: 0;
+  color: #005151;
+}
+
+.weather, .destinations, .map-section {
+  margin-top: 30px;
+}
+
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.destination-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  text-align: center;
+}
+
+.map-box {
+  height: 300px;
+  border-radius: 10px;
+  background: #ddd;
+}
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+    <!-- Planner Page -->
+    <main id="planner" class="page">
+        <h2>🗓️ My Planner</h2>
+        <p>Plan your activities and trips here!</p>
+        <div id="itinerary-list"></div>
+        <button id="add-plan">Add New Plan</button>
+    </main>
+
+    <!-- AI Chat Page -->
+    <main id="ai" class="page">
+        <h2>💬 Travel Assistant</h2>
+        <div class="chat-box" id="chat-box">
+            <div class="bot">Hi Maitha! How can I help you plan your day? 🌞</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Ask your travel assistant..." />
+            <button id="send-btn">Send</button>
+        </div>
+    </main>
+
+    <!-- Profile Page -->
+    <main id="profile" class="page">
+        <h2>👤 My Profile</h2>
+        <form id="profile-form">
+            <label>Name:</label><br>
+            <input type="text" id="name" /><br>
+            <label>Country:</label><br>
+            <input type="text" id="country" /><br><br>
+            <button type="submit">Save</button>
+        </form>
+        <div id="profile-message"></div>
+    </main>

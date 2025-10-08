@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}AI Chat | Yalla Planner{% endblock %}
+
+{% block content %}
+<!-- 💬 AI Chat Interface -->
+<section id="ai">
+  <h2>AI Travel & Lifestyle Assistant</h2>
+  <p class="subtitle">Ask me to suggest events, add reminders, or create a daily schedule.</p>
+
+  <!-- 🪄 AI Icon / Logo -->
+  <div class="chat-logo">
+    <img src="{{ url_for('static', filename='images/chatbot_icon.png') }}" alt="Yalla AI Icon">
+  </div>
+
+  <!-- Tone switcher -->
+  <div class="tone-switch">
+    <label>Assistant Tone:</label>
+    <select id="tone">
+      <option>Casual</option>
+      <option>Neutral</option>
+      <option>Professional</option>
+    </select>
+  </div>
+
+  <!-- Quick commands -->
+  <div class="quick-actions">
+    <button class="chip" data-msg="Suggest events for tonight">Suggest Events</button>
+    <button class="chip" data-msg="Add a reminder at 6 PM to go to the gym">Add Reminder</button>
+    <button class="chip" data-msg="Create a daily schedule for Abu Dhabi">Create Daily Schedule</button>
+  </div>
+
+  <!-- Chat window -->
+  <div class="chat-box" id="chat-box">
+    <div class="bot-message">
+      <img src="{{ url_for('static', filename='images/chatbot_icon.png') }}" class="bot-avatar" alt="AI Avatar">
+      👋 Hi! I’m your Yalla Assistant. How can I help today?
+    </div>
+  </div>
+
+  <!-- Input area -->
+  <div class="chat-input">
+    <input type="text" id="user-input" placeholder="Type your message..." />
+    <button id="send-btn">Send</button>
+  </div>
+</section>
+
+<!-- 🧠 JavaScript Chat Logic -->
+<script>
+  const chatBox   = document.getElementById('chat-box');
+  const userInput = document.getElementById('user-input');
+  const sendBtn   = document.getElementById('send-btn');
+  const toneSel   = document.getElementById('tone');
+
+  // Helper: append a message bubble
+  function addMsg(text, who='bot') {
+    const div = document.createElement('div');
+    div.className = who === 'bot' ? 'bot-message' : 'user-message';
+    div.innerHTML = (who === 'bot'
+      ? `<img src="{{ url_for('static', filename='images/chatbot_icon.png') }}" class="bot-avatar" alt="AI Avatar"> 🤖 `
+      : '🧍 ') + text;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // Handle send
+  async function sendMessage(text) {
+    if (!text) return;
+    addMsg(text, 'user');
+
+    const res = await fetch('/chat', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ message: text, tone: toneSel.value })
+    });
+    const data = await res.json();
+    addMsg(data.reply, 'bot');
+  }
+
+  sendBtn.addEventListener('click', () => {
+    const msg = userInput.value.trim();
+    userInput.value = '';
+    sendMessage(msg);
+  });
+
+  // Quick chips
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => sendMessage(btn.dataset.msg));
+  });
+
+  // Enter key support
+  userInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendBtn.click();
+  });
+</script>
+{% endblock %}

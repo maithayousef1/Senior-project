@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Home | Yalla Planner{% endblock %}
+{% block content %}
+<!-- Landing page with big CTA buttons -->
+<section class="home">
+  <h2 id="greeting">Welcome back! Ready to plan your day?</h2>
+  <p class="subtitle">Good morning, ready to plan your day?</p>
+
+  <div class="cta-grid">
+    <a class="cta" href="{{ url_for('planner') }}">Plan My Day</a>
+    <a class="cta" href="{{ url_for('preferences_page') }}">My Preferences</a>
+    <a class="cta" href="{{ url_for('explore') }}">Explore UAE</a>
+  </div>
+
+  <small class="tip">Tip: toggle 🌙 for dark mode</small>
+</section>
+{% endblock %}

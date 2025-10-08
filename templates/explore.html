@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Explore | Yalla Planner{% endblock %}
+{% block content %}
+<section class="hero">
+  <h2>Choose your city</h2>
+
+  <div class="city-carousel">
+    <div class="city-card" style="background-image:url('/static/images/dubai.jpg')">Dubai</div>
+    <div class="city-card" style="background-image:url('/static/images/abu_dhabi.jpg')">Abu Dhabi</div>
+    <div class="city-card" style="background-image:url('/static/images/ras.jpg')">Ras Al Khaimah</div>
+    <div class="city-card" style="background-image:url('/static/images/sharjah.jpg')">Sharjah</div>
+  </div>
+
+  <button class="primary-btn">Explore the City</button>
+</section>
+{% endblock %}

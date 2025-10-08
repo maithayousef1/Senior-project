@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Planner | Yalla Planner{% endblock %}
+{% block content %}
+<section id="planner">
+  <h2>Daily Planner</h2>
+  <p class="subtitle">Split by Morning, Afternoon, Evening — quick actions on every card.</p>
+
+  <!-- Timeline columns -->
+  <div class="timeline">
+    <div class="time-col">
+      <h3>🌅 Morning</h3>
+      <div class="card">
+        <h4>Breakfast at local café</h4>
+        <p>Travel time: 10 mins</p>
+        <div class="actions">
+          <button class="btn">✅ Complete</button>
+          <button class="btn">🔁 Replace</button>
+          <button class="btn">❤️ Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-col">
+      <h3>🌤️ Afternoon</h3>
+      <div class="card">
+        <h4>Visit Louvre Abu Dhabi</h4>
+        <p>Travel time: 18 mins</p>
+        <div class="actions">
+          <button class="btn">✅ Complete</button>
+          <button class="btn">🔁 Replace</button>
+          <button class="btn">❤️ Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-col">
+      <h3>🌇 Evening</h3>
+      <div class="card">
+        <h4>Corniche sunset walk</h4>
+        <p>Travel time: 6 mins</p>
+        <div class="actions">
+          <button class="btn">✅ Complete</button>
+          <button class="btn">🔁 Replace</button>
+          <button class="btn">❤️ Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="primary-btn">+ Add Another Activity</button>
+</section>
+{% endblock %}

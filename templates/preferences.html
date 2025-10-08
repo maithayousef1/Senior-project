@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Preferences | Yalla Planner{% endblock %}
+{% block content %}
+<section id="profile">
+  <h2>My Preferences</h2>
+  <p class="subtitle">Tune your interests, tone and memory settings. I’ll personalize suggestions for you.</p>
+
+  <!-- Form -->
+  <form id="pref-form" class="pref-form">
+    <!-- Interests -->
+    <div class="pref-group">
+      <label><strong>Interests</strong></label>
+      <div class="chips">
+        <!-- simple checkboxes with icons/emojis -->
+        <label><input type="checkbox" name="interest" value="Cafes"> ☕ Cafes</label>
+        <label><input type="checkbox" name="interest" value="Events"> 🎟️ Events</label>
+        <label><input type="checkbox" name="interest" value="Beaches"> 🏖️ Beaches</label>
+        <label><input type="checkbox" name="interest" value="Gyms"> 💪 Gyms</label>
+        <label><input type="checkbox" name="interest" value="Museums"> 🖼️ Museums</label>
+        <label><input type="checkbox" name="interest" value="Nature"> 🌿 Nature</label>
+      </div>
+    </div>
+
+    <!-- Tone -->
+    <div class="pref-group">
+      <label><strong>Assistant Tone</strong></label>
+      <select id="tone">
+        <option>Friendly</option>
+        <option>Neutral</option>
+        <option>Formal</option>
+      </select>
+    </div>
+
+    <!-- Memory toggle -->
+    <div class="pref-group">
+      <label><strong>Allow Yalla AI to save my preferences</strong></label>
+      <label class="switch">
+        <input type="checkbox" id="remember">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="pref-actions">
+      <button type="submit" class="primary-btn">Save Preferences</button>
+      <button type="button" id="reset" class="btn">Reset</button>
+    </div>
+  </form>
+
+  <div id="pref-status" class="status"></div>
+</section>
+
+<script>
+  // Load existing preferences on page load
+  async function loadPrefs() {
+    const res = await fetch('/api/preferences');
+    const data = await res.json();
+    // check interests
+    (data.interests || []).forEach(val=>{
+      const box = document.querySelector(`input[name="interest"][value="${val}"]`);
+      if (box) box.checked = true;
+    });
+    // tone & remember
+    document.getElementById('tone').value = data.tone || 'Friendly';
+    document.getElementById('remember').checked = !!data.remember;
+  }
+
+  // Save preferences
+  document.getElementById('pref-form').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const interests = Array.from(document.querySelectorAll('input[name="interest"]:checked')).map(x=>x.value);
+    const tone = document.getElementById('tone').value;
+    const remember = document.getElementById('remember').checked;
+
+    const res = await fetch('/api/preferences', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ interests, tone, remember })
+    });
+    const data = await res.json();
+    document.getElementById('pref-status').textContent = '✅ Preferences saved!';
+  });
+
+  // Reset preferences (delete)
+  document.getElementById('reset').addEventListener('click', async ()=>{
+    await fetch('/api/preferences', { method:'DELETE' });
+    document.querySelectorAll('input[name="interest"]').forEach(x=>x.checked=false);
+    document.getElementById('tone').value = 'Friendly';
+    document.getElementById('remember').checked = true;
+    document.getElementById('pref-status').textContent = '🔄 Preferences reset.';
+  });
+
+  loadPrefs();
+</script>
+{% endblock %}

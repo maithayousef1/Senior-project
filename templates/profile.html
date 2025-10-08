@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Profile | Yalla Planner{% endblock %}
+
+{% block content %}
+<!-- 👤 User Profile Page -->
+<section id="profile">
+  <h2>Hi, Maitha 🌸</h2>
+  <p class="subtitle">Welcome back to your travel and lifestyle hub!</p>
+
+  <!-- Profile Summary -->
+  <div class="profile-summary">
+    <div class="profile-card">
+      <h3>My Info</h3>
+      <p><strong>Name:</strong> Maitha Yousef Alsaeedi</p>
+      <p><strong>Country:</strong> UAE 🇦🇪</p>
+      <p><strong>Goals:</strong> Balance work, travel, and wellness</p>
+    </div>
+
+    <div class="profile-card">
+      <h3>Saved Trips</h3>
+      <ul>
+        <li>🏝️ Maldives Summer</li>
+        <li>🗼 Paris Adventure</li>
+        <li>🏙️ Dubai Staycation</li>
+      </ul>
+    </div>
+    <div class="profile-card">
+      <h3>Favorites</h3>
+      <ul>
+        <li>☕ Specialty Cafés</li>
+        <li>🏖️ Beach Walks</li>
+        <li>🖼️ Museums</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Achievements or inspiration section -->
+  <div class="profile-section">
+    <h3>✨ Favorite Inspirations</h3>
+    <div class="inspiration-cards">
+      <div class="inspiration-card">
+        <img src="/static/images/beach.jpg" alt="Beach" />
+        <p>Relax by the sea</p>
+      </div>
+      <div class="inspiration-card">
+        <img src="/static/images/cafe.jpg" alt="Cafe" />
+        <p>Find cozy cafés</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
