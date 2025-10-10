@@ -208,14 +208,6 @@ It was a hands-on experience in creating an **AI-driven real-world application**
 
 ---
 
- Contact
-
-For inquiries or feedback:
-📩 [202080207@zu.ac.ae](mailto:202080207@zu.ac.ae)
-🌍 Abu Dhabi, United Arab Emirates
-
----
-
  License
 
 This project was developed for educational and research purposes at Zayed University.
